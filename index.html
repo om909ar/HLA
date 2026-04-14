@@ -184,8 +184,8 @@
             border: 1px solid #e2e8f0;
         }
         .btn-reset:hover {
-            color: #e53e3e;
-            border-color: #feb2b2;
+            color: #ff8fab;
+            border-color: #ff8fab;
         }
     </style>
 </head>
@@ -225,7 +225,7 @@
         </div>
 
         <div class="mt-8 flex flex-col items-center gap-4">
-            <button onclick="resetAll()" class="btn-reset">إعادة تعيين الجدول للوضع الأصلي</button>
+            <button onclick="resetAllNotes()" class="btn-reset">تصفير الملاحظات (للقائمة الحالية)</button>
         </div>
     </div>
 
@@ -249,6 +249,7 @@
 
         function getSavedData() {
             const saved = localStorage.getItem('brandTasksDataV2');
+            // المرة الأولى فقط نستخدم القائمة الأصلية
             return saved ? JSON.parse(saved) : initialTasks.map(t => ({...t, note: "", completed: false, id: Date.now() + Math.random()}));
         }
 
@@ -316,7 +317,7 @@
         }
 
         function deleteTask(index) {
-            if(confirm("هل أنتِ متأكدة من حذف هذا البراند؟")) {
+            if(confirm("هل أنتِ متأكدة من حذف هذا البراند نهائياً؟")) {
                 const data = getSavedData();
                 data.splice(index, 1);
                 saveData(data);
@@ -337,9 +338,16 @@
             render();
         }
 
-        function resetAll() {
-            if(confirm("هذا الخيار سيعيد الجدول لقائمة البراندات الأساسية ويحذف كل ما أضفتيه. هل أنتِ متأكدة؟")) {
-                localStorage.removeItem('brandTasksDataV2');
+        // الوظيفة الجديدة: تمسح الملاحظات فقط للبراندات الموجودة حالياً
+        function resetAllNotes() {
+            if(confirm("سيتم مسح ملاحظات البراندات الموجودة حالياً فقط وتصفير علامات الإتمام. هل أنتِ متأكدة؟")) {
+                const data = getSavedData();
+                const resetData = data.map(task => ({
+                    ...task,
+                    note: "",
+                    completed: false
+                }));
+                saveData(resetData);
                 render();
             }
         }
