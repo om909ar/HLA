@@ -16,7 +16,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 10px; /* تقليل الحواف للجوال */
+            padding: 20px 10px;
         }
         
         .main-container {
@@ -39,7 +39,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* تنسيق الجدول للشاشات الكبيرة فقط */
         @media (min-width: 768px) {
             table {
                 width: 100%;
@@ -60,10 +59,9 @@
             .mobile-label { display: none; }
         }
 
-        /* تنسيق خاص للجوال لتحويل الجدول لبطاقات */
         @media (max-width: 767px) {
             table, thead, tbody, th, td, tr { display: block; }
-            thead { display: none; } /* إخفاء الهيدر في الجوال */
+            thead { display: none; }
             tr {
                 margin-bottom: 15px;
                 border-bottom: 2px solid #ffe4e9;
@@ -152,11 +150,12 @@
             transition: all 0.3s;
             border: 1px solid #ffe4e9;
             width: 100%;
-            max-width: 300px;
+            max-width: 350px;
         }
         .btn-action:hover {
-            background: #ff8fab;
+            background: #ff4d7d;
             color: white;
+            border-color: #ff4d7d;
         }
     </style>
 </head>
@@ -185,7 +184,7 @@
         </div>
 
         <div class="mt-8 flex justify-center px-4">
-            <button onclick="resetAll()" class="btn-action text-sm md:text-base">إعادة تعيين الجدول بالكامل</button>
+            <button onclick="resetAll()" class="btn-action text-sm md:text-base">إعادة تعيين الجدول (مسح الملاحظات)</button>
         </div>
     </div>
 
@@ -195,21 +194,22 @@
 
     <script>
         const initialTasks = [
-            { id: 1, brand: "شيك بوينت", code: "HL24", note: "موجود ومطلوب تصويره" },
-            { id: 2, brand: "زيت محاسن", code: "HL55", note: "-" },
-            { id: 3, brand: "شايا", code: "HLA", note: "موجود ومطلوب تصويره" },
-            { id: 4, brand: "بيتونيا", code: "AA48", note: "شحنة منتظرة" },
-            { id: 5, brand: "نايس ون", code: "ZL797", note: "شحنة منتظرة / تصوير" },
-            { id: 6, brand: "شي ان", code: "-", note: "شحنة منتظرة" },
-            { id: 7, brand: "شنط ميكب", code: "-", note: "شحنة منتظرة" },
-            { id: 8, brand: "الاضاءه", code: "-", note: "شحنة منتظرة" },
-            { id: 9, brand: "ماتشا", code: "-", note: "شحنة منتظرة" },
-            { id: 10, brand: "مفرش السرير", code: "-", note: "موجود ومطلوب تصويره" }
+            { id: 1, brand: "شيك بوينت", code: "HL24" },
+            { id: 2, brand: "زيت محاسن", code: "HL55" },
+            { id: 3, brand: "شايا", code: "HLA" },
+            { id: 4, brand: "بيتونيا", code: "AA48" },
+            { id: 5, brand: "نايس ون", code: "ZL797" },
+            { id: 6, brand: "شي ان", code: "-" },
+            { id: 7, brand: "شنط ميكب", code: "-" },
+            { id: 8, brand: "الاضاءه", code: "-" },
+            { id: 9, brand: "ماتشا", code: "-" },
+            { id: 10, brand: "مفرش السرير", code: "-" }
         ];
 
         function getSavedData() {
             const saved = localStorage.getItem('brandTasksData');
-            return saved ? JSON.parse(saved) : initialTasks.map(t => ({...t, completed: false}));
+            // إذا لم يوجد حفظ، ننشئ بيانات جديدة بملاحظات فارغة
+            return saved ? JSON.parse(saved) : initialTasks.map(t => ({...t, note: "", completed: false}));
         }
 
         function saveData(data) {
@@ -238,8 +238,8 @@
                             <div 
                                 class="editable-note" 
                                 contenteditable="${!task.completed}" 
-                                oninput="updateNote(${index}, this.innerText)">
-                                ${task.note}
+                                onblur="updateNote(${index}, this.innerText)">
+                                ${task.note || ''}
                             </div>
                         </div>
                     </td>
@@ -250,7 +250,7 @@
 
         function updateNote(index, text) {
             const data = getSavedData();
-            data[index].note = text;
+            data[index].note = text.trim();
             saveData(data);
         }
 
@@ -262,9 +262,10 @@
         }
 
         function resetAll() {
-            if(confirm("سيتم مسح كل التعديلات والملاحظات والعودة للوضع الأصلي. هل أنتِ متأكدة؟")) {
-                // عند الضغط على إعادة التعيين، يتم مسح البيانات المخزنة محلياً تماماً
-                localStorage.removeItem('brandTasksData');
+            if(confirm("سيتم مسح كافة الملاحظات وعلامات الإتمام. هل أنتِ متأكدة؟")) {
+                // إنشاء بيانات جديدة بملاحظات فارغة تماماً
+                const cleanData = initialTasks.map(t => ({...t, note: "", completed: false}));
+                saveData(cleanData);
                 render();
             }
         }
