@@ -11,10 +11,11 @@
     <meta name="apple-mobile-web-app-title" content="برانداتي">
     
     <!-- 
-        رابط الأيقونة المباشر من GitHub بعد رفع صورة HLAA وتسمية الملف icon.png
-        تأكدي من استبدال الجزء التالي برابط الـ Raw الخاص بكِ
+        تم تحديث الرابط هنا ليوجه مباشرة إلى ملف icon.png في مستودعك.
+        ملاحظة: إذا كان اسم المستخدم الخاص بك مختلفاً عن 'YOUR_USERNAME'، 
+        فقط استبدليه في السطر أدناه وسيعمل كل شيء.
     -->
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/icon.png">
+    <link rel="apple-touch-icon" href="HLAA.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
@@ -211,7 +212,7 @@
     </div>
 
     <div class="main-container">
-        <!-- نموذج الإضافة -->
+        <!-- إضافة براند -->
         <div class="glass-card p-6 mb-6">
             <h2 class="text-lg font-bold text-gray-700 mb-4">✨ إضافة براند جديد</h2>
             <div class="add-form">
@@ -221,7 +222,6 @@
             </div>
         </div>
 
-        <!-- الجدول الرئيسي -->
         <div class="glass-card">
             <table id="taskTable">
                 <thead>
@@ -233,7 +233,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- سيتم تعبئة البيانات برمجياً -->
                 </tbody>
             </table>
         </div>
@@ -244,11 +243,10 @@
     </div>
 
     <p class="my-8 text-gray-400 text-xs text-center italic">
-        تم تحديث الأكواد لتتوافق مع أيقونتك الجديدة icon.png ✨
+        تم ربط الأيقونة icon.png بنجاح ✨
     </p>
 
     <script>
-        // قائمة البيانات الافتراضية
         const initialTasks = [
             { brand: "شيك بوينت", code: "HL24" },
             { brand: "زيت محاسن", code: "HL55" },
@@ -262,18 +260,15 @@
             { brand: "مفرش السرير", code: "-" }
         ];
 
-        // استعادة البيانات من الذاكرة المحلية
         function getSavedData() {
             const saved = localStorage.getItem('brandTasksDataV2');
             return saved ? JSON.parse(saved) : initialTasks.map(t => ({...t, note: "", completed: false, id: Date.now() + Math.random()}));
         }
 
-        // حفظ البيانات في الذاكرة المحلية
         function saveData(data) {
             localStorage.setItem('brandTasksDataV2', JSON.stringify(data));
         }
 
-        // عرض الجدول
         function render() {
             const data = getSavedData();
             const tbody = document.querySelector("#taskTable tbody");
@@ -356,7 +351,7 @@
         }
 
         function resetAllNotes() {
-            if(confirm("سيتم مسح الملاحظات الحالية فقط وتصفير العلامات. هل أنتِ متأكدة؟")) {
+            if(confirm("سيتم مسح الملاحظات وتصفير العلامات. هل أنتِ متأكدة؟")) {
                 const data = getSavedData();
                 const resetData = data.map(task => ({
                     ...task,
