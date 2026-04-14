@@ -5,23 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة إنجاز المهام الذكية ✨</title>
     
-    <!-- إعدادات الأيقونة والظهور في الآيفون (Add to Home Screen) -->
+    <!-- إعدادات الأيقونة للشاشة الرئيسية في الآيفون (Add to Home Screen) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="برانداتي">
     
-    <!-- 
-        تم تحديث الرابط هنا ليوجه مباشرة إلى ملف icon.png في مستودعك.
-        ملاحظة: إذا كان اسم المستخدم الخاص بك مختلفاً عن 'YOUR_USERNAME'، 
-        فقط استبدليه في السطر أدناه وسيعمل كل شيء.
-    -->
-    <link rel="icon" href="icon.png/HLAA.png" type="image/png" />
+    <!-- الرابط الصحيح للأيقونة (يجب أن يكون اسم الملف مطابقاً تماماً لما في جيت هب) -->
+    <link rel="apple-touch-icon" href="HLAA.png">
+    <link rel="icon" href="HLAA.png" type="image/png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- أيقونة المتصفح الصغيرة -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
     
     <style>
         body {
@@ -114,6 +108,7 @@
                 border-bottom: 2px solid #ffe4e9;
                 padding: 15px 10px;
                 background: white;
+                border-radius: 20px;
             }
             td {
                 display: flex;
@@ -129,10 +124,6 @@
                 flex-shrink: 0;
                 margin-left: 10px;
             }
-            .editable-note {
-                min-width: 65% !important;
-                text-align: right;
-            }
         }
         
         .editable-note {
@@ -140,66 +131,24 @@
             min-width: 120px;
             padding: 8px 12px;
             border-radius: 12px;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            cursor: text;
             background: #fdf2f8;
             color: #be185d;
             font-weight: 500;
             outline: none;
-            font-size: 0.95rem;
         }
-        .editable-note:focus {
-            border-color: #ff8fab;
-            background: white;
-        }
-
-        .done-btn, .delete-btn {
-            cursor: pointer;
-            font-size: 1.4rem;
-            transition: transform 0.2s;
-            padding: 0 5px;
-        }
-        .delete-btn:hover { color: #e53e3e; transform: scale(1.2); }
-        .done-btn:hover { transform: scale(1.2); }
 
         .completed-row {
             background-color: #f9fafb !important;
+            opacity: 0.6;
         }
-        .completed-row td, .completed-row .mobile-label {
-            color: #cbd5e0 !important;
-            opacity: 0.7;
-        }
-        .completed-row .editable-note {
-            text-decoration: line-through;
-            background: #f1f5f9;
-            color: #94a3b8;
-            cursor: not-allowed;
-        }
-
+        
         .code-tag {
             background: #fdf2f8;
             color: #be185d;
             padding: 3px 10px;
             border-radius: 8px;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: monospace;
             font-weight: bold;
-            border: 1px dashed #f9a8d4;
-            font-size: 0.9rem;
-        }
-        
-        .btn-reset {
-            background: white;
-            color: #718096;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            transition: all 0.3s;
-            border: 1px solid #e2e8f0;
-        }
-        .btn-reset:hover {
-            color: #ff8fab;
-            border-color: #ff8fab;
         }
     </style>
 </head>
@@ -208,11 +157,9 @@
     <div class="text-center mb-8 px-4">
         <h1 class="text-3xl md:text-4xl font-bold text-[#ff8fab] mb-3">🌸 لوحة التحكم الشخصية 🌸</h1>
         <p class="text-gray-500 text-sm md:text-base italic">اللهم ارزقني رزقًا طيبًا مباركًا فيه🤍</p>
-        <div class="h-1 w-20 bg-[#ff8fab] mx-auto mt-2 rounded-full opacity-50"></div>
     </div>
 
     <div class="main-container">
-        <!-- إضافة براند -->
         <div class="glass-card p-6 mb-6">
             <h2 class="text-lg font-bold text-gray-700 mb-4">✨ إضافة براند جديد</h2>
             <div class="add-form">
@@ -232,19 +179,10 @@
                         <th style="width: 10%;">إجراء</th>
                     </tr>
                 </thead>
-                <tbody>
-                </tbody>
+                <tbody></tbody>
             </table>
         </div>
-
-        <div class="mt-8 flex flex-col items-center gap-4">
-            <button onclick="resetAllNotes()" class="btn-reset">تصفير الملاحظات (للقائمة الحالية)</button>
-        </div>
     </div>
-
-    <p class="my-8 text-gray-400 text-xs text-center italic">
-        تم ربط الأيقونة icon.png بنجاح ✨
-    </p>
 
     <script>
         const initialTasks = [
@@ -252,12 +190,7 @@
             { brand: "زيت محاسن", code: "HL55" },
             { brand: "شايا", code: "HLA" },
             { brand: "بيتونيا", code: "AA48" },
-            { brand: "نايس ون", code: "ZL797" },
-            { brand: "شي ان", code: "-" },
-            { brand: "شنط ميكب", code: "-" },
-            { brand: "الاضاءه", code: "-" },
-            { brand: "ماتشا", code: "-" },
-            { brand: "مفرش السرير", code: "-" }
+            { brand: "نايس ون", code: "ZL797" }
         ];
 
         function getSavedData() {
@@ -279,25 +212,16 @@
                 if (task.completed) tr.classList.add('completed-row');
 
                 tr.innerHTML = `
-                    <td><span class="mobile-label">البراند:</span><span class="font-bold">${task.brand}</span></td>
+                    <td><span class="mobile-label">البراند:</span><b>${task.brand}</b></td>
                     <td><span class="mobile-label">الكود:</span><span class="code-tag">${task.code}</span></td>
                     <td>
                         <span class="mobile-label">الملاحظة:</span>
-                        <div class="flex items-center">
-                            <span class="done-btn" onclick="toggleComplete(${index})">
-                                ${task.completed ? '✅' : '⭕'}
-                            </span>
-                            <div 
-                                class="editable-note" 
-                                contenteditable="${!task.completed}" 
-                                onblur="updateNote(${index}, this.innerText)">
-                                ${task.note || ''}
-                            </div>
-                        </div>
+                        <span onclick="toggleComplete(${index})" class="cursor-pointer">${task.completed ? '✅' : '⭕'}</span>
+                        <div class="editable-note" contenteditable="${!task.completed}" onblur="updateNote(${index}, this.innerText)">${task.note || ''}</div>
                     </td>
                     <td>
                         <span class="mobile-label">حذف:</span>
-                        <span class="delete-btn" onclick="deleteTask(${index})">🗑️</span>
+                        <span class="cursor-pointer" onclick="deleteTask(${index})">🗑️</span>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -305,41 +229,18 @@
         }
 
         function addNewTask() {
-            const brandInput = document.getElementById('newBrand');
-            const codeInput = document.getElementById('newCode');
-            
-            if (brandInput.value.trim() === "") {
-                alert("يرجى إدخال اسم البراند");
-                return;
-            }
-
+            const brand = document.getElementById('newBrand').value;
+            const code = document.getElementById('newCode').value;
+            if (!brand) return;
             const data = getSavedData();
-            data.unshift({
-                id: Date.now(),
-                brand: brandInput.value.trim(),
-                code: codeInput.value.trim() || "-",
-                note: "",
-                completed: false
-            });
-
+            data.unshift({ brand, code: code || "-", note: "", completed: false, id: Date.now() });
             saveData(data);
-            brandInput.value = "";
-            codeInput.value = "";
             render();
-        }
-
-        function deleteTask(index) {
-            if(confirm("هل أنتِ متأكدة من حذف هذا البراند نهائياً؟")) {
-                const data = getSavedData();
-                data.splice(index, 1);
-                saveData(data);
-                render();
-            }
         }
 
         function updateNote(index, text) {
             const data = getSavedData();
-            data[index].note = text.trim();
+            data[index].note = text;
             saveData(data);
         }
 
@@ -350,17 +251,11 @@
             render();
         }
 
-        function resetAllNotes() {
-            if(confirm("سيتم مسح الملاحظات وتصفير العلامات. هل أنتِ متأكدة؟")) {
-                const data = getSavedData();
-                const resetData = data.map(task => ({
-                    ...task,
-                    note: "",
-                    completed: false
-                }));
-                saveData(resetData);
-                render();
-            }
+        function deleteTask(index) {
+            const data = getSavedData();
+            data.splice(index, 1);
+            saveData(data);
+            render();
         }
 
         render();
