@@ -10,11 +10,16 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="برانداتي">
     
-    <!-- تصميم الأيقونة: وردة 🌸 بخلفية وردية ناعمة -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23fff5f7%22/><text y=%22.9em%22 x=%225%22 font-size=%2280%22>🌸</text></svg>">
+    <!-- 
+        رابط الأيقونة المباشر من GitHub بعد رفع صورة HLAA وتسمية الملف icon.png
+        تأكدي من استبدال الجزء التالي برابط الـ Raw الخاص بكِ
+    -->
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/icon.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- أيقونة المتصفح الصغيرة -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
     
     <style>
@@ -49,7 +54,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* تنسيق نموذج الإضافة */
         .add-form {
             display: flex;
             gap: 10px;
@@ -207,7 +211,7 @@
     </div>
 
     <div class="main-container">
-        <!-- نموذج إضافة براند -->
+        <!-- نموذج الإضافة -->
         <div class="glass-card p-6 mb-6">
             <h2 class="text-lg font-bold text-gray-700 mb-4">✨ إضافة براند جديد</h2>
             <div class="add-form">
@@ -217,7 +221,7 @@
             </div>
         </div>
 
-        <!-- الجدول -->
+        <!-- الجدول الرئيسي -->
         <div class="glass-card">
             <table id="taskTable">
                 <thead>
@@ -229,7 +233,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- البيانات هنا -->
+                    <!-- سيتم تعبئة البيانات برمجياً -->
                 </tbody>
             </table>
         </div>
@@ -240,10 +244,11 @@
     </div>
 
     <p class="my-8 text-gray-400 text-xs text-center italic">
-        جميع البيانات تُحفظ في متصفحك بشكل آمن ✨
+        تم تحديث الأكواد لتتوافق مع أيقونتك الجديدة icon.png ✨
     </p>
 
     <script>
+        // قائمة البيانات الافتراضية
         const initialTasks = [
             { brand: "شيك بوينت", code: "HL24" },
             { brand: "زيت محاسن", code: "HL55" },
@@ -257,15 +262,18 @@
             { brand: "مفرش السرير", code: "-" }
         ];
 
+        // استعادة البيانات من الذاكرة المحلية
         function getSavedData() {
             const saved = localStorage.getItem('brandTasksDataV2');
             return saved ? JSON.parse(saved) : initialTasks.map(t => ({...t, note: "", completed: false, id: Date.now() + Math.random()}));
         }
 
+        // حفظ البيانات في الذاكرة المحلية
         function saveData(data) {
             localStorage.setItem('brandTasksDataV2', JSON.stringify(data));
         }
 
+        // عرض الجدول
         function render() {
             const data = getSavedData();
             const tbody = document.querySelector("#taskTable tbody");
@@ -348,7 +356,7 @@
         }
 
         function resetAllNotes() {
-            if(confirm("سيتم مسح ملاحظات البراندات الموجودة حالياً فقط وتصفير علامات الإتمام. هل أنتِ متأكدة؟")) {
+            if(confirm("سيتم مسح الملاحظات الحالية فقط وتصفير العلامات. هل أنتِ متأكدة؟")) {
                 const data = getSavedData();
                 const resetData = data.map(task => ({
                     ...task,
