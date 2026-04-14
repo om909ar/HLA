@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قائمة تنظيم التصوير ✨</title>
+    <title>لوحة إنجاز المهام الذكية ✨</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- إضافة أيقونة تعبيرية كشعار للموقع في المتصفح -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
     
     <style>
@@ -55,23 +54,53 @@
         tr:hover td {
             background-color: #fff9fa;
         }
-        .badge {
+        
+        /* تصميم خانة الملاحظات القابلة للتعديل */
+        .editable-note {
             display: inline-block;
-            padding: 6px 16px;
-            border-radius: 20px;
+            min-width: 150px;
+            padding: 8px 15px;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: text;
+            background: #fdf2f8;
+            color: #be185d;
             font-weight: 500;
-            font-size: 0.9rem;
+            outline: none;
         }
-        .badge-active { 
-            background-color: #f0e6ff; 
-            color: #6b46c1;
-            border: 1px solid #dcd0ff;
+        .editable-note:focus {
+            border-color: #ff8fab;
+            background: white;
+            box-shadow: 0 0 10px rgba(255, 143, 171, 0.2);
         }
-        .badge-wait { 
-            background-color: #fff0f3; 
-            color: #d63384;
-            border: 1px solid #ffd1dc;
+        .editable-note:empty::before {
+            content: "اكتبي ملاحظة...";
+            color: #cbd5e0;
         }
+
+        /* زر الإتمام بجانب الملاحظة */
+        .done-btn {
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+        }
+        .done-btn:hover { transform: scale(1.2); }
+
+        .completed-row td {
+            color: #a0aec0 !important;
+            opacity: 0.6;
+        }
+        .completed-row .editable-note {
+            text-decoration: line-through;
+            background: #edf2f7;
+            color: #718096;
+            cursor: not-allowed;
+        }
+
         .code-tag {
             background: #fdf2f8;
             color: #be185d;
@@ -87,120 +116,130 @@
             font-size: 0.9rem;
             text-align: center;
         }
-        /* تصميم زر العودة للأعلى */
-        #scrollTop {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
+        .btn-action {
+            background: white;
+            color: #ff8fab;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 143, 171, 0.2);
+            transition: all 0.3s;
+            border: 1px solid #ffe4e9;
+        }
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 143, 171, 0.3);
             background: #ff8fab;
             color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: 0.3s;
-            opacity: 0.8;
-        }
-        #scrollTop:hover {
-            transform: scale(1.1);
-            opacity: 1;
         }
     </style>
 </head>
 <body>
 
     <div class="text-center mb-10">
-        <h1 class="text-4xl font-bold text-[#ff8fab] mb-3">🌸 لوحة تحكم المحتوى 🌸</h1>
-        <div class="h-1 w-24 bg-[#ff8fab] mx-auto rounded-full"></div>
+        <h1 class="text-4xl font-bold text-[#ff8fab] mb-3">🌸 لوحة التحكم الشخصية 🌸</h1>
+        <p class="text-gray-500 italic">اضغطي على النص لتعديله، وعلى الرمز لإتمام المهمة</p>
+        <div class="h-1 w-24 bg-[#ff8fab] mx-auto mt-4 rounded-full"></div>
     </div>
 
     <div class="glass-card">
-        <table>
+        <table id="taskTable">
             <thead>
                 <tr>
-                    <th style="width: 10%;">#</th>
-                    <th style="width: 25%;">البراند</th>
-                    <th style="width: 20%;">الاكواد</th>
-                    <th style="width: 45%;">حالة المهمة</th>
+                    <th style="width: 8%;">#</th>
+                    <th style="width: 22%;">البراند</th>
+                    <th style="width: 15%;">الاكواد</th>
+                    <th style="width: 55%;">الملاحظات</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td class="font-bold">شيك بوينت</td>
-                    <td><span class="code-tag">HL24</span></td>
-                    <td><span class="badge badge-active">✅ موجود ومطلوب تصويره</span></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td class="font-bold">زيت محاسن</td>
-                    <td><span class="code-tag">HL55</span></td>
-                    <td class="text-gray-300">-</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td class="font-bold">شايا</td>
-                    <td><span class="code-tag">HLA</span></td>
-                    <td><span class="badge badge-active">✅ موجود ومطلوب تصويره</span></td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td class="font-bold">بيتونيا</td>
-                    <td><span class="code-tag">AA48</span></td>
-                    <td><span class="badge badge-wait">⏳ شحنة منتظرة</span></td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td class="font-bold">نايس ون</td>
-                    <td><span class="code-tag">ZL797</span></td>
-                    <td><span class="badge badge-wait">⏳ شحنة منتظرة / تصوير</span></td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td class="font-bold">شي ان</td>
-                    <td class="text-gray-300">-</td>
-                    <td><span class="badge badge-wait">⏳ شحنة منتظرة</span></td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td class="font-bold">شنط ميكب</td>
-                    <td class="text-gray-300">-</td>
-                    <td><span class="badge badge-wait">⏳ شحنة منتظرة</span></td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td class="font-bold">الاضاءه</td>
-                    <td class="text-gray-300">-</td>
-                    <td><span class="badge badge-wait">⏳ شحنة منتظرة</span></td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td class="font-bold">ماتشا</td>
-                    <td class="text-gray-300">-</td>
-                    <td><span class="badge badge-wait">⏳ شحنة منتظرة</span></td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td class="font-bold">مفرش السرير</td>
-                    <td class="text-gray-300">-</td>
-                    <td><span class="badge badge-active">✅ موجود ومطلوب تصويره</span></td>
-                </tr>
+                <!-- Rows injected by JS -->
             </tbody>
         </table>
     </div>
 
-    <div id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        ↑
+    <div class="mt-8 flex gap-4">
+        <button onclick="resetAll()" class="btn-action">إعادة تعيين الجدول بالكامل</button>
     </div>
 
     <p class="footer-note">
-        تم التحديث بتاريخ: <script>document.write(new Date().toLocaleDateString('ar-SA'));</script><br>
-        صُنع بكل حب لتنظيم إبداعك ✨
+        جميع التعديلات تُحفظ تلقائياً في متصفحك ✨
     </p>
 
+    <script>
+        const initialTasks = [
+            { id: 1, brand: "شيك بوينت", code: "HL24", note: "موجود ومطلوب تصويره" },
+            { id: 2, brand: "زيت محاسن", code: "HL55", note: "-" },
+            { id: 3, brand: "شايا", code: "HLA", note: "موجود ومطلوب تصويره" },
+            { id: 4, brand: "بيتونيا", code: "AA48", note: "شحنة منتظرة" },
+            { id: 5, brand: "نايس ون", code: "ZL797", note: "شحنة منتظرة / تصوير" },
+            { id: 6, brand: "شي ان", code: "-", note: "شحنة منتظرة" },
+            { id: 7, brand: "شنط ميكب", code: "-", note: "شحنة منتظرة" },
+            { id: 8, brand: "الاضاءه", code: "-", note: "شحنة منتظرة" },
+            { id: 9, brand: "ماتشا", code: "-", note: "شحنة منتظرة" },
+            { id: 10, brand: "مفرش السرير", code: "-", note: "موجود ومطلوب تصويره" }
+        ];
+
+        function getSavedData() {
+            const saved = localStorage.getItem('brandTasksData');
+            return saved ? JSON.parse(saved) : initialTasks.map(t => ({...t, completed: false}));
+        }
+
+        function saveData(data) {
+            localStorage.setItem('brandTasksData', JSON.stringify(data));
+        }
+
+        function render() {
+            const data = getSavedData();
+            const tbody = document.querySelector("#taskTable tbody");
+            tbody.innerHTML = '';
+
+            data.forEach((task, index) => {
+                const tr = document.createElement('tr');
+                if (task.completed) tr.classList.add('completed-row');
+
+                tr.innerHTML = `
+                    <td>${task.id}</td>
+                    <td class="font-bold">${task.brand}</td>
+                    <td><span class="code-tag">${task.code}</span></td>
+                    <td class="flex items-center justify-center">
+                        <span class="done-btn" onclick="toggleComplete(${index})">
+                            ${task.completed ? '✅' : '⭕'}
+                        </span>
+                        <div 
+                            class="editable-note" 
+                            contenteditable="${!task.completed}" 
+                            oninput="updateNote(${index}, this.innerText)">
+                            ${task.note}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function updateNote(index, text) {
+            const data = getSavedData();
+            data[index].note = text;
+            saveData(data);
+        }
+
+        function toggleComplete(index) {
+            const data = getSavedData();
+            data[index].completed = !data[index].completed;
+            saveData(data);
+            render();
+        }
+
+        function resetAll() {
+            if(confirm("سيتم مسح كل التعديلات والملاحظات والعودة للوضع الأصلي. هل أنتِ متأكدة؟")) {
+                localStorage.removeItem('brandTasksData');
+                render();
+            }
+        }
+
+        // Initial render
+        render();
+    </script>
 </body>
 </html>
