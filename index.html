@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة تنظيم التصوير ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #fff5f7 0%, #f0e6ff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(255, 182, 193, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            width: 100%;
+            max-width: 900px;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: linear-gradient(90deg, #ff8fab, #ffb6c1);
+            color: white;
+            padding: 20px;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        td {
+            padding: 18px 15px;
+            border-bottom: 1px solid #ffe4e9;
+            text-align: center;
+            color: #4a5568;
+            font-size: 1rem;
+        }
+        tr:hover td {
+            background-color: #fff9fa;
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .badge-active { 
+            background-color: #f0e6ff; 
+            color: #6b46c1;
+            border: 1px solid #dcd0ff;
+        }
+        .badge-wait { 
+            background-color: #fff0f3; 
+            color: #d63384;
+            border: 1px solid #ffd1dc;
+        }
+        .code-tag {
+            background: #fdf2f8;
+            color: #be185d;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            border: 1px dashed #f9a8d4;
+        }
+        .footer-note {
+            margin-top: 30px;
+            color: #a0aec0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="text-center mb-10">
+        <h1 class="text-4xl font-bold text-[#ff8fab] mb-3">🌸 لوحة تحكم المحتوى 🌸</h1>
+        <div class="h-1 w-24 bg-[#ff8fab] mx-auto rounded-full"></div>
+    </div>
+
+    <div class="glass-card">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 10%;">#</th>
+                    <th style="width: 25%;">البراند</th>
+                    <th style="width: 20%;">الكود الغذائي</th>
+                    <th style="width: 45%;">حالة المهمة</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td class="font-bold">شيك بوينت</td>
+                    <td><span class="code-tag">HL24</span></td>
+                    <td><span class="badge badge-active">✅ موجود ومطلوب تصويره</span></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class="font-bold">زيت محاسن</td>
+                    <td><span class="code-tag">HL55</span></td>
+                    <td class="text-gray-300">-</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td class="font-bold">شايا</td>
+                    <td><span class="code-tag">HLA</span></td>
+                    <td><span class="badge badge-active">✅ موجود ومطلوب تصويره</span></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td class="font-bold">بيتونيا</td>
+                    <td><span class="code-tag">AA48</span></td>
+                    <td><span class="badge badge-wait">⏳ شحنة منتظرة</span></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td class="font-bold">نايس ون</td>
+                    <td><span class="code-tag">ZL797</span></td>
+                    <td><span class="badge badge-wait">⏳ شحنة منتظرة / تصوير</span></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td class="font-bold">شي ان</td>
+                    <td class="text-gray-300">-</td>
+                    <td><span class="badge badge-wait">⏳ شحنة منتظرة</span></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td class="font-bold">شنط ميكب</td>
+                    <td class="text-gray-300">-</td>
+                    <td><span class="badge badge-wait">⏳ شحنة منتظرة</span></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td class="font-bold">الاضاءه</td>
+                    <td class="text-gray-300">-</td>
+                    <td><span class="badge badge-wait">⏳ شحنة منتظرة</span></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td class="font-bold">ماتشا</td>
+                    <td class="text-gray-300">-</td>
+                    <td><span class="badge badge-wait">⏳ شحنة منتظرة</span></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td class="font-bold">مفرش السرير</td>
+                    <td class="text-gray-300">-</td>
+                    <td><span class="badge badge-active">✅ موجود ومطلوب تصويره</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="footer-note">
+        تم التحديث بتاريخ: <script>document.write(new Date().toLocaleDateString('ar-SA'));</script><br>
+        صُنع بكل حب لتنظيم إبداعك ✨
+    </p>
+
+</body>
+</html>
