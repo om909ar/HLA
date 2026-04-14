@@ -29,14 +29,47 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(15px);
             border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.3);
+            box-shadow: 0 15px 35px rgba(255, 182, 193, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.8);
             overflow: hidden;
+            margin-bottom: 20px;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form Styling */
+        .add-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .input-field {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 20px;
+            border-radius: 15px;
+            border: 2px solid #ffe4e9;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .input-field:focus {
+            border-color: #ff8fab;
+        }
+        .btn-add {
+            background: #ff8fab;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 15px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-add:hover {
+            background: #ff4d7d;
+            transform: scale(1.02);
         }
 
         @media (min-width: 768px) {
@@ -90,7 +123,7 @@
         
         .editable-note {
             display: inline-block;
-            min-width: 150px;
+            min-width: 120px;
             padding: 8px 12px;
             border-radius: 12px;
             border: 2px solid transparent;
@@ -105,15 +138,16 @@
         .editable-note:focus {
             border-color: #ff8fab;
             background: white;
-            box-shadow: 0 0 10px rgba(255, 143, 171, 0.2);
         }
 
-        .done-btn {
+        .done-btn, .delete-btn {
             cursor: pointer;
             font-size: 1.4rem;
             transition: transform 0.2s;
-            margin-left: 8px;
+            padding: 0 5px;
         }
+        .delete-btn:hover { color: #e53e3e; transform: scale(1.2); }
+        .done-btn:hover { transform: scale(1.2); }
 
         .completed-row {
             background-color: #f9fafb !important;
@@ -140,40 +174,48 @@
             font-size: 0.9rem;
         }
         
-        .btn-action {
+        .btn-reset {
             background: white;
-            color: #ff8fab;
-            padding: 12px 30px;
+            color: #718096;
+            padding: 10px 20px;
             border-radius: 50px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(255, 143, 171, 0.2);
+            font-size: 0.8rem;
             transition: all 0.3s;
-            border: 1px solid #ffe4e9;
-            width: 100%;
-            max-width: 350px;
+            border: 1px solid #e2e8f0;
         }
-        .btn-action:hover {
-            background: #ff4d7d;
-            color: white;
-            border-color: #ff4d7d;
+        .btn-reset:hover {
+            color: #e53e3e;
+            border-color: #feb2b2;
         }
     </style>
 </head>
 <body>
 
-    <div class="text-center mb-10 px-4">
+    <div class="text-center mb-8 px-4">
         <h1 class="text-3xl md:text-4xl font-bold text-[#ff8fab] mb-3">🌸 لوحة التحكم الشخصية 🌸</h1>
         <div class="h-1 w-20 bg-[#ff8fab] mx-auto mt-2 rounded-full opacity-50"></div>
     </div>
 
     <div class="main-container">
+        <!-- Add Brand Section -->
+        <div class="glass-card p-6 mb-6">
+            <h2 class="text-lg font-bold text-gray-700 mb-4">✨ إضافة براند جديد</h2>
+            <div class="add-form">
+                <input type="text" id="newBrand" class="input-field" placeholder="اسم البراند...">
+                <input type="text" id="newCode" class="input-field" placeholder="الكود...">
+                <button onclick="addNewTask()" class="btn-add">إضافة +</button>
+            </div>
+        </div>
+
+        <!-- Table Section -->
         <div class="glass-card">
             <table id="taskTable">
                 <thead>
                     <tr>
-                        <th style="width: 30%;">البراند</th>
+                        <th style="width: 25%;">البراند</th>
                         <th style="width: 20%;">الكود</th>
-                        <th style="width: 50%;">الملاحظات</th>
+                        <th style="width: 45%;">الملاحظات</th>
+                        <th style="width: 10%;">إجراء</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -182,36 +224,36 @@
             </table>
         </div>
 
-        <div class="mt-8 flex justify-center px-4">
-            <button onclick="resetAll()" class="btn-action text-sm md:text-base">إعادة تعيين الجدول (مسح الملاحظات)</button>
+        <div class="mt-8 flex flex-col items-center gap-4">
+            <button onclick="resetAll()" class="btn-reset">إعادة تعيين الجدول للوضع الأصلي</button>
         </div>
     </div>
 
-    <p class="mt-8 text-gray-400 text-xs md:text-sm text-center">
-        جميع التعديلات تُحفظ تلقائياً في متصفحك ✨
+    <p class="my-8 text-gray-400 text-xs text-center italic">
+        جميع البيانات تُحفظ في متصفحك بشكل آمن ✨
     </p>
 
     <script>
         const initialTasks = [
-            { id: 1, brand: "شيك بوينت", code: "HL24" },
-            { id: 2, brand: "زيت محاسن", code: "HL55" },
-            { id: 3, brand: "شايا", code: "HLA" },
-            { id: 4, brand: "بيتونيا", code: "AA48" },
-            { id: 5, brand: "نايس ون", code: "ZL797" },
-            { id: 6, brand: "شي ان", code: "-" },
-            { id: 7, brand: "شنط ميكب", code: "-" },
-            { id: 8, brand: "الاضاءه", code: "-" },
-            { id: 9, brand: "ماتشا", code: "-" },
-            { id: 10, brand: "مفرش السرير", code: "-" }
+            { brand: "شيك بوينت", code: "HL24" },
+            { brand: "زيت محاسن", code: "HL55" },
+            { brand: "شايا", code: "HLA" },
+            { brand: "بيتونيا", code: "AA48" },
+            { brand: "نايس ون", code: "ZL797" },
+            { brand: "شي ان", code: "-" },
+            { brand: "شنط ميكب", code: "-" },
+            { brand: "الاضاءه", code: "-" },
+            { brand: "ماتشا", code: "-" },
+            { brand: "مفرش السرير", code: "-" }
         ];
 
         function getSavedData() {
-            const saved = localStorage.getItem('brandTasksData');
-            return saved ? JSON.parse(saved) : initialTasks.map(t => ({...t, note: "", completed: false}));
+            const saved = localStorage.getItem('brandTasksDataV2');
+            return saved ? JSON.parse(saved) : initialTasks.map(t => ({...t, note: "", completed: false, id: Date.now() + Math.random()}));
         }
 
         function saveData(data) {
-            localStorage.setItem('brandTasksData', JSON.stringify(data));
+            localStorage.setItem('brandTasksDataV2', JSON.stringify(data));
         }
 
         function render() {
@@ -240,9 +282,46 @@
                             </div>
                         </div>
                     </td>
+                    <td>
+                        <span class="mobile-label">حذف:</span>
+                        <span class="delete-btn" onclick="deleteTask(${index})">🗑️</span>
+                    </td>
                 `;
                 tbody.appendChild(tr);
             });
+        }
+
+        function addNewTask() {
+            const brandInput = document.getElementById('newBrand');
+            const codeInput = document.getElementById('newCode');
+            
+            if (brandInput.value.trim() === "") {
+                alert("يرجى إدخال اسم البراند");
+                return;
+            }
+
+            const data = getSavedData();
+            data.unshift({
+                id: Date.now(),
+                brand: brandInput.value.trim(),
+                code: codeInput.value.trim() || "-",
+                note: "",
+                completed: false
+            });
+
+            saveData(data);
+            brandInput.value = "";
+            codeInput.value = "";
+            render();
+        }
+
+        function deleteTask(index) {
+            if(confirm("هل أنتِ متأكدة من حذف هذا البراند؟")) {
+                const data = getSavedData();
+                data.splice(index, 1);
+                saveData(data);
+                render();
+            }
         }
 
         function updateNote(index, text) {
@@ -259,9 +338,8 @@
         }
 
         function resetAll() {
-            if(confirm("سيتم مسح كافة الملاحظات وعلامات الإتمام. هل أنتِ متأكدة؟")) {
-                const cleanData = initialTasks.map(t => ({...t, note: "", completed: false}));
-                saveData(cleanData);
+            if(confirm("هذا الخيار سيعيد الجدول لقائمة البراندات الأساسية ويحذف كل ما أضفتيه. هل أنتِ متأكدة؟")) {
+                localStorage.removeItem('brandTasksDataV2');
                 render();
             }
         }
