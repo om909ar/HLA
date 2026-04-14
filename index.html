@@ -10,16 +10,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="برانداتي">
     
-    <!-- 
-        التعديل النهائي بناءً على هيكلة المجلدات لديكِ:
-        الصورة HLAA.png موجودة داخل المجلد icon.png
-    -->
-    <link rel="apple-touch-icon" href="icon.png/HLAA.png?v=4">
-    <link rel="apple-touch-icon" sizes="152x152" href="icon.png/HLAA.png?v=4">
-    <link rel="apple-touch-icon" sizes="180x180" href="icon.png/HLAA.png?v=4">
-    <link rel="apple-touch-icon" sizes="167x167" href="icon.png/HLAA.png?v=4">
+    <!-- المسار الصحيح بناءً على هيكلة المجلدات لديكِ -->
+    <link rel="apple-touch-icon" href="icon.png/HLAA.png?v=5">
+    <link rel="apple-touch-icon" sizes="152x152" href="icon.png/HLAA.png?v=5">
+    <link rel="apple-touch-icon" sizes="180x180" href="icon.png/HLAA.png?v=5">
+    <link rel="apple-touch-icon" sizes="167x167" href="icon.png/HLAA.png?v=5">
     
-    <link rel="icon" href="icon.png/HLAA.png?v=4" type="image/png">
+    <link rel="icon" href="icon.png/HLAA.png?v=5" type="image/png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
@@ -157,9 +154,44 @@
             font-family: monospace;
             font-weight: bold;
         }
+
+        .action-link {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            text-decoration: underline;
+            cursor: pointer;
+            display: block;
+            margin-top: 4px;
+        }
+        .action-link:hover {
+            color: #ff8fab;
+        }
+
+        /* نافذة التأكيد المخصصة */
+        #customConfirm {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
+
+    <!-- نافذة تأكيد الحذف -->
+    <div id="customConfirm">
+        <div class="bg-white p-6 rounded-3xl shadow-xl max-w-xs w-full text-center mx-4">
+            <p class="text-lg font-bold text-gray-700 mb-4">هل أنتِ متأكدة من حذف هذا البراند؟ 🌸</p>
+            <div class="flex gap-3 justify-center">
+                <button id="confirmBtn" class="bg-red-400 text-white px-6 py-2 rounded-xl font-bold">حذف</button>
+                <button onclick="closeConfirm()" class="bg-gray-200 text-gray-600 px-6 py-2 rounded-xl font-bold">إلغاء</button>
+            </div>
+        </div>
+    </div>
 
     <div class="text-center mb-8 px-4">
         <h1 class="text-3xl md:text-4xl font-bold text-[#ff8fab] mb-3">🌸 لوحة التحكم الشخصية 🌸</h1>
@@ -200,6 +232,8 @@
             { brand: "نايس ون", code: "ZL797" }
         ];
 
+        let deleteIndex = null;
+
         function getSavedData() {
             const saved = localStorage.getItem('brandTasksDataV2');
             return saved ? JSON.parse(saved) : initialTasks.map(t => ({...t, note: "", completed: false, id: Date.now() + Math.random()}));
@@ -223,12 +257,17 @@
                     <td><span class="mobile-label">الكود:</span><span class="code-tag">${task.code}</span></td>
                     <td>
                         <span class="mobile-label">الملاحظة:</span>
-                        <span onclick="toggleComplete(${index})" class="cursor-pointer">${task.completed ? '✅' : '⭕'}</span>
-                        <div class="editable-note" contenteditable="${!task.completed}" onblur="updateNote(${index}, this.innerText)">${task.note || ''}</div>
+                        <div class="flex items-center gap-2 justify-center md:justify-start">
+                             <span onclick="toggleComplete(${index})" class="cursor-pointer text-xl">${task.completed ? '✅' : '⭕'}</span>
+                             <div class="editable-note" contenteditable="${!task.completed}" onblur="updateNote(${index}, this.innerText)">${task.note || ''}</div>
+                        </div>
                     </td>
                     <td>
-                        <span class="mobile-label">حذف:</span>
-                        <span class="cursor-pointer" onclick="deleteTask(${index})">🗑️</span>
+                        <span class="mobile-label">إجراء:</span>
+                        <div class="flex flex-col items-center">
+                            <span class="cursor-pointer text-xl" onclick="showConfirm(${index})">🗑️</span>
+                            <span class="action-link" onclick="resetTask(${index})">إعادة تعيين</span>
+                        </div>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -242,6 +281,8 @@
             const data = getSavedData();
             data.unshift({ brand, code: code || "-", note: "", completed: false, id: Date.now() });
             saveData(data);
+            document.getElementById('newBrand').value = '';
+            document.getElementById('newCode').value = '';
             render();
         }
 
@@ -257,6 +298,34 @@
             saveData(data);
             render();
         }
+
+        function resetTask(index) {
+            const data = getSavedData();
+            data[index].completed = false;
+            data[index].note = "";
+            saveData(data);
+            render();
+        }
+
+        function showConfirm(index) {
+            deleteIndex = index;
+            document.getElementById('customConfirm').style.display = 'flex';
+        }
+
+        function closeConfirm() {
+            document.getElementById('customConfirm').style.display = 'none';
+            deleteIndex = null;
+        }
+
+        document.getElementById('confirmBtn').onclick = function() {
+            if (deleteIndex !== null) {
+                const data = getSavedData();
+                data.splice(deleteIndex, 1);
+                saveData(data);
+                render();
+                closeConfirm();
+            }
+        };
 
         function deleteTask(index) {
             const data = getSavedData();
