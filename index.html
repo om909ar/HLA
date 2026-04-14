@@ -83,7 +83,7 @@
                 margin-left: 10px;
             }
             .editable-note {
-                min-width: 60% !important;
+                min-width: 65% !important;
                 text-align: right;
             }
         }
@@ -161,8 +161,9 @@
 </head>
 <body>
 
-    <div class="text-center mb-8 px-4">
+    <div class="text-center mb-10 px-4">
         <h1 class="text-3xl md:text-4xl font-bold text-[#ff8fab] mb-3">🌸 لوحة التحكم الشخصية 🌸</h1>
+        <div class="h-1 w-20 bg-[#ff8fab] mx-auto mt-2 rounded-full opacity-50"></div>
     </div>
 
     <div class="main-container">
@@ -170,10 +171,9 @@
             <table id="taskTable">
                 <thead>
                     <tr>
-                        <th style="width: 8%;">#</th>
-                        <th style="width: 22%;">البراند</th>
-                        <th style="width: 15%;">الاكواد</th>
-                        <th style="width: 55%;">الملاحظات</th>
+                        <th style="width: 30%;">البراند</th>
+                        <th style="width: 20%;">الكود</th>
+                        <th style="width: 50%;">الملاحظات</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -207,7 +207,6 @@
 
         function getSavedData() {
             const saved = localStorage.getItem('brandTasksData');
-            // إذا لم يوجد حفظ، ننشئ بيانات جديدة بملاحظات فارغة
             return saved ? JSON.parse(saved) : initialTasks.map(t => ({...t, note: "", completed: false}));
         }
 
@@ -225,7 +224,6 @@
                 if (task.completed) tr.classList.add('completed-row');
 
                 tr.innerHTML = `
-                    <td><span class="mobile-label">رقم المهمة:</span>${task.id}</td>
                     <td><span class="mobile-label">البراند:</span><span class="font-bold">${task.brand}</span></td>
                     <td><span class="mobile-label">الكود:</span><span class="code-tag">${task.code}</span></td>
                     <td>
@@ -262,7 +260,6 @@
 
         function resetAll() {
             if(confirm("سيتم مسح كافة الملاحظات وعلامات الإتمام. هل أنتِ متأكدة؟")) {
-                // إنشاء بيانات جديدة بملاحظات فارغة تماماً
                 const cleanData = initialTasks.map(t => ({...t, note: "", completed: false}));
                 saveData(cleanData);
                 render();
