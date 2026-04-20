@@ -179,34 +179,41 @@
             justify-content: center;
             align-items: center;
         }
-
-        .side-button {
+.menu-btn {
   position: fixed;
+  top: 15px;
   left: 15px;
-  top: 60%;
-  transform: translateY(-50%);
-
-  background: linear-gradient(135deg, #4facfe, #00c6ff);
+  font-size: 26px;
+  background: #ff8fab;
   color: white;
-
-  width: 55px;
-  height: 55px;
-
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+}
 
-  border-radius: 15px;
-  font-size: 22px;
-
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-  text-decoration: none;
-
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -220px;
+  width: 200px;
+  height: 100%;
+  background: white;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+  padding-top: 60px;
   transition: 0.3s;
 }
 
-.side-button:hover {
-  transform: translateY(-50%) scale(1.1);
+.side-menu a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  color: #ff8fab;
+  font-weight: bold;
 }
         
     </style>
@@ -378,6 +385,19 @@
 
         render();
 
+        <script>
+function toggleMenu() {
+  let menu = document.getElementById("sideMenu");
+
+  if (menu.style.left === "0px") {
+    menu.style.left = "-220px";
+  } else {
+    menu.style.left = "0px";
+  }
+}
+</script>
+
+    
 
     </script>
 </body>
