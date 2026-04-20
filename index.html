@@ -199,13 +199,15 @@ right: 15px;
 .side-menu {
   position: fixed;
   top: 0;
-  left: -220px;
+  right: -220px; /* بدل left */
   width: 200px;
   height: 100%;
   background: white;
-  box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+  box-shadow: -5px 0 15px rgba(0,0,0,0.1); /* عكس الاتجاه */
   padding-top: 60px;
   transition: 0.3s;
+  z-index: 999;
+
 }
 
 .side-menu a {
@@ -387,17 +389,17 @@ right: 15px;
 
 
 
+
 function toggleMenu() {
   let menu = document.getElementById("sideMenu");
 
-  if (menu.style.left === "0px") {
-    menu.style.left = "-220px";
+  if (menu.style.right === "0px") {
+    menu.style.right = "-220px";
   } else {
-    menu.style.left = "0px";
+    menu.style.right = "0px";
   }
 }
-</script>
-}
+        }
 </script>
 
     
