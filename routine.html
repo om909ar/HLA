@@ -1,49 +1,51 @@
-
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>روتيني الشهري</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 body {
-  font-family: Arial;
-  direction: rtl;
+  font-family: 'Tajawal', sans-serif;
+  background: linear-gradient(135deg, #fff5f7 0%, #f0e6ff 100%);
   text-align: center;
-  background: linear-gradient(to right, #e5a82f, #f2c14e);
   margin: 0;
+  padding: 20px;
 }
 
 /* زر الرجوع */
-.back-btn {
+.back {
   display: block;
   text-align: right;
-  padding: 15px;
+  margin-bottom: 10px;
   text-decoration: none;
-  color: black;
+  color: #ff8fab;
   font-weight: bold;
 }
 
-/* التحكم */
-.controls {
-  margin: 20px;
+/* العنوان */
+h2 {
+  color: #ff8fab;
 }
 
+/* التحكم */
 input, select {
   padding: 10px;
   margin: 5px;
-  width: 200px;
-  border-radius: 8px;
-  border: none;
+  border-radius: 10px;
+  border: 1px solid #ffd6e0;
 }
 
 button {
-  padding: 10px 20px;
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  background: #1e6fa8;
+  background: #ff8fab;
   color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 /* الجدول */
@@ -51,23 +53,14 @@ button {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
-  padding: 20px;
+  margin-top: 20px;
 }
 
 .day {
   background: white;
-  border-radius: 12px;
+  border-radius: 15px;
   padding: 10px;
-  min-height: 100px;
-}
-
-.day h3 {
-  margin: 5px;
-}
-
-.routine {
-  font-size: 13px;
-  margin-top: 5px;
+  min-height: 90px;
 }
 </style>
 
@@ -75,129 +68,88 @@ button {
 
 <body>
 
-<a href="index.html" class="back-btn">← العودة للرئيسية</a>
+<a href="index.html" class="back">← العودة للرئيسية</a>
 
 <h2>📅 روتيني الشهري</h2>
 
-<div class="controls">
+<select id="daySelect">
+  <option>السبت</option>
+  <option>الأحد</option>
+  <option>الإثنين</option>
+  <option>الثلاثاء</option>
+  <option>الأربعاء</option>
+  <option>الخميس</option>
+  <option>الجمعة</option>
+</select>
 
-  <select id="daySelect">
-    <option>السبت</option>
-    <option>الأحد</option>
-    <option>الإثنين</option>
-    <option>الثلاثاء</option>
-    <option>الأربعاء</option>
-    <option>الخميس</option>
-    <option>الجمعة</option>
-  </select>
+<br>
 
-  <br>
+<input type="text" id="routineInput" placeholder="اكتب روتينك">
 
-  <input type="text" id="routineInput" placeholder="اكتب روتينك">
+<br>
 
-  <br>
+<input type="number" id="dayNumber" placeholder="رقم اليوم (1-30)" min="1" max="30">
 
-  <input type="number" id="dayNumber" placeholder="رقم اليوم (1-30)" min="1" max="30">
+<br>
 
-  <br>
-
-  <button onclick="addRoutine()">إضافة</button>
-
-</div>
+<button onclick="addRoutine()">إضافة</button>
 
 <div class="calendar" id="calendar"></div>
 
 <script>
-
-// تحميل البيانات المحفوظة
 let routines = JSON.parse(localStorage.getItem("routines")) || {};
-
-// إنشاء الأيام
 let calendar = document.getElementById("calendar");
 
+// إنشاء الأيام
 for (let i = 1; i <= 30; i++) {
   let div = document.createElement("div");
   div.className = "day";
   div.id = "day-" + i;
-
-  div.innerHTML = `
-    <h3>يوم ${i}</h3>
-    <div class="routine" id="routine-${i}"></div>
-  `;
-
+  div.innerHTML = `<b>يوم ${i}</b><div id="r-${i}"></div>`;
   calendar.appendChild(div);
 }
 
-// عرض البيانات المحفوظة
-function renderRoutines() {
-  for (let day in routines) {
-    let box = document.getElementById("routine-" + day);
+// عرض البيانات
+function render() {
+  for (let d in routines) {
+    let box = document.getElementById("r-" + d);
     box.innerHTML = "";
-
-    routines[day].forEach((item, index) => {
+    routines[d].forEach((r, i) => {
       box.innerHTML += `
         <div>
-          (${item.day}) - ${item.text}
-          <button onclick="deleteRoutine(${day}, ${index})">❌</button>
-          <button onclick="editRoutine(${day}, ${index})">✏️</button>
+          ${r.day} - ${r.text}
+          <span onclick="del(${d},${i})">❌</span>
         </div>
       `;
     });
   }
 }
 
-// إضافة الروتين
+// إضافة
 function addRoutine() {
-  let dayNum = document.getElementById("dayNumber").value;
-  let routineText = document.getElementById("routineInput").value;
-  let selectedDay = document.getElementById("daySelect").value;
+  let d = dayNumber.value;
+  let t = routineInput.value;
+  let day = daySelect.value;
 
-  if (!dayNum || !routineText) {
-    alert("عبي كل الحقول");
-    return;
-  }
+  if (!d || !t) return;
 
-  if (!routines[dayNum]) {
-    routines[dayNum] = [];
-  }
+  if (!routines[d]) routines[d] = [];
 
-  routines[dayNum].push({
-    day: selectedDay,
-    text: routineText
-  });
+  routines[d].push({ day, text: t });
 
-  saveData();
-  renderRoutines();
-
-  document.getElementById("routineInput").value = "";
+  localStorage.setItem("routines", JSON.stringify(routines));
+  render();
+  routineInput.value = "";
 }
 
 // حذف
-function deleteRoutine(day, index) {
-  routines[day].splice(index, 1);
-  saveData();
-  renderRoutines();
-}
-
-// تعديل
-function editRoutine(day, index) {
-  let newText = prompt("عدل الروتين:", routines[day][index].text);
-
-  if (newText) {
-    routines[day][index].text = newText;
-    saveData();
-    renderRoutines();
-  }
-}
-
-// حفظ
-function saveData() {
+function del(d,i){
+  routines[d].splice(i,1);
   localStorage.setItem("routines", JSON.stringify(routines));
+  render();
 }
 
-// أول تحميل
-renderRoutines();
-
+render();
 </script>
 
 </body>
