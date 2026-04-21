@@ -230,22 +230,36 @@
 
      .alert {
   position: fixed;
-  top: 70px;       /* 🔥 تحت زر القائمة */
-  right: 15px;     /* 🔥 نفس مكان الثلاث شرطات */
-  
-  background: #fff0f5;
+  top: 70px;
+  right: 15px;
+
+  background: #ffffff; /* أبيض واضح */
   color: #d81b60;
-  
-  padding: 12px 20px;
-  border-radius: 15px;
-  
+
+  padding: 12px 16px;
+  border-radius: 14px;
+
+  font-size: 14px;
   font-weight: bold;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+  border: 1px solid #ffe4e9; /* 👈 يعطيه شكل قالب */
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
   opacity: 0;
-  transition: 0.5s;
+  transform: translateY(-10px);
+  transition: 0.4s;
 
   z-index: 9999;
+}
+
+.alert.show {
+  opacity: 1;
+  transform: translateY(0);
 }
         
     </style>
