@@ -132,9 +132,11 @@ if (i === currentDay) {
 }
 
   // إذا اليوم انتهى
-  if (i < currentDay) {
-    card.classList.add("done");
-  }
+  let isDone = i < currentDay;
+
+if (isDone) {
+  card.classList.add("done");
+}
 
   card.innerHTML = `
     <div class="day">${dayName}</div>
