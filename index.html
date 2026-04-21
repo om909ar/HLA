@@ -452,12 +452,11 @@ function toggleMenu() {
 
   let alertBox = document.getElementById("dailyAlert");
 
-alertBox.style.display = "block";
-alertBox.style.opacity = "1";
+alertBox.classList.add("show");
 
 setTimeout(() => {
-  alertBox.style.opacity = "0";
-}, 6000);
+  alertBox.classList.remove("show");
+}, 5000);
 
  
 
