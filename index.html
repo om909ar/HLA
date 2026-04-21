@@ -291,56 +291,56 @@ border: 1px solid #ffe4ec;
 </head>
 <body>
 
-<div class="glass-card">
+<!-- زر القائمة (فوق الصفحة) -->
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
 
-  <!-- زر القائمة داخل الكرت -->
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
-
-  <!-- العنوان -->
-  <h2>💅🏻 الروتين الشهري</h2>
-
-</div>
-
-<!-- القائمة (تبقى برا) -->
+<!-- القائمة -->
 <div id="sideMenu" class="side-menu">
-  <a href="routine.html">الروتين الشهري💅🏻</a>
+  <a href="routine.html">💅🏻 الروتين الشهري</a>
 </div>
 
 <!-- التنبيه -->
 <div id="dailyAlert" class="alert">
   🔔 لا تنسين روتين اليوم
 </div>
-    
-    <!-- نافذة تأكيد الحذف -->
-    <div id="customConfirm">
-        <div class="bg-white p-6 rounded-3xl shadow-xl max-w-xs w-full text-center mx-4">
-            <p class="text-lg font-bold text-gray-700 mb-4">هل أنتِ متأكدة من حذف هذا البراند؟ 🎀</p>
-            <div class="flex gap-3 justify-center">
-                <button id="confirmBtn" class="bg-red-400 text-white px-6 py-2 rounded-xl font-bold">حذف</button>
-                <button onclick="closeConfirm()" class="bg-gray-200 text-gray-600 px-6 py-2 rounded-xl font-bold">إلغاء</button>
-            </div>
-        </div>
+
+<!-- نافذة تأكيد الحذف -->
+<div id="customConfirm">
+  <div class="bg-white p-6 rounded-3xl shadow-xl max-w-xs w-full text-center mx-4">
+    <p class="text-lg font-bold text-gray-700 mb-4">
+      هل أنتِ متأكدة من حذف هذا البراند؟ 🎀
+    </p>
+    <div class="flex gap-3 justify-center">
+      <button id="confirmBtn" class="bg-red-400 text-white px-6 py-2 rounded-xl font-bold">
+        حذف
+      </button>
+      <button onclick="closeConfirm()" class="bg-gray-200 text-gray-600 px-6 py-2 rounded-xl font-bold">
+        إلغاء
+      </button>
     </div>
-
-    <div class="text-center mb-8 px-4">
-        <h1 class="text-3xl md:text-4xl font-bold text-[#ff8fab] mb-3">🎀 لوحة المهام الشخصية 🎀</h1>
-        <p class="text-gray-500 text-sm md:text-base italic">اللهم ارزقني رزقًا طيبًا مباركًا فيه🤍</p>
-    </div>
-
-    <div class="main-container">
- <!-- داخل الكرت الأبيض (أول كرت) -->
-<div class="glass-card p-6 mb-6">
-
-  <!-- زر الثلاث أشرطة -->
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
-
-<div id="sideMenu" class="side-menu">
-  <a href="routine.html">💅🏻 الروتين الشهري</a>
+  </div>
 </div>
 
-<div id="dailyAlert" class="alert">
-  🔔 لا تنسين روتين اليوم
+<!-- العنوان -->
+<div class="text-center mb-8 px-4">
+  <h1 class="text-3xl md:text-4xl font-bold text-[#ff8fab] mb-3">
+    🎀 لوحة المهام الشخصية 🎀
+  </h1>
+  <p class="text-gray-500 text-sm md:text-base italic">
+    اللهم ارزقني رزقًا طيبًا مباركًا فيه🤍
+  </p>
 </div>
+
+<div class="main-container">
+
+  <!-- كرت إضافة براند -->
+  <div class="glass-card p-6 mb-6">
+
+    <h2 class="text-lg font-bold text-gray-700 mb-4">
+      ✨ إضافة براند جديد
+    </h2>
+
+    <div class="add-form">
 
         <div class="glass-card">
             <table id="taskTable">
