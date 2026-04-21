@@ -158,7 +158,9 @@ if (isDone) {
 </textarea>
   `;
 
-  container.appendChild(card);
+if (i < currentDay) {
+  let textarea = card.querySelector("textarea");
+  textarea.disabled = true;
 }
 
 // حفظ
