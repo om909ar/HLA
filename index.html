@@ -227,6 +227,25 @@
   color: #ff8fab;
   font-weight: bold;
 }
+
+        .alert {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  background: #fff0f5;
+  color: #d81b60;
+  
+  padding: 12px 20px;
+  border-radius: 15px;
+  
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  
+  display: none;
+  z-index: 9999;
+}
         
     </style>
 </head>
@@ -236,6 +255,10 @@
 
 <div id="sideMenu" class="side-menu">
   <a href="routine.html">📅 الروتين الشهري</a>
+</div>
+
+    <div id="dailyAlert" class="alert">
+  🔔 لا تنسى روتين اليوم
 </div>
     
     <!-- نافذة تأكيد الحذف -->
@@ -410,6 +433,22 @@ function toggleMenu() {
   }
 }
 
+        <script>
+let today = new Date().getDate();
+let lastShown = localStorage.getItem("alertDay");
+
+if (lastShown != today) {
+  let alertBox = document.getElementById("dailyAlert");
+  alertBox.style.display = "block";
+
+  setTimeout(() => {
+    alertBox.style.display = "none";
+  }, 3000);
+
+  localStorage.setItem("alertDay", today);
+}
+
+    
 </script>
 
     
