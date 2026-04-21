@@ -160,7 +160,9 @@ if (isDone) {
 
 container.appendChild(card);
 data));
-  
+  if (i < currentDay) {
+  let textarea = card.querySelector("textarea");
+  textarea.disabled = true;
 }
 // حفظ
 function save(day, value) {
