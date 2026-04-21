@@ -434,9 +434,7 @@ function toggleMenu() {
 }
 
 let today = new Date().getDate();
-let lastShown = localStorage.getItem("alertDay");
 
-if (lastShown != today) {
   let alertBox = document.getElementById("dailyAlert");
   alertBox.style.display = "block";
 
@@ -444,7 +442,7 @@ if (lastShown != today) {
     alertBox.style.display = "none";
   }, 10000);
 
-  localStorage.setItem("alertDay", today);
+ 
 }
 
 
