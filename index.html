@@ -47,7 +47,8 @@
             border: 1px solid rgba(255, 255, 255, 0.8);
             overflow: hidden;
             margin-bottom: 20px;
-        }
+               position: relative;
+}
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
@@ -181,9 +182,9 @@
         }
         
 .menu-btn {
-  position: fixed;
-  top: 15px;
-  right: 15px;
+  position: absolute; /* 👈 بدل fixed */
+  top: 10px;
+  right: 10px;
 
   font-size: 26px;
   background: #ff8fab;
@@ -290,13 +291,23 @@ border: 1px solid #ffe4ec;
 </head>
 <body>
 
-<div class="menu-btn" onclick="toggleMenu()">☰</div>
+<div class="glass-card">
 
+  <!-- زر القائمة داخل الكرت -->
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+  <!-- العنوان -->
+  <h2>💅🏻 الروتين الشهري</h2>
+
+</div>
+
+<!-- القائمة (تبقى برا) -->
 <div id="sideMenu" class="side-menu">
   <a href="routine.html">الروتين الشهري💅🏻</a>
 </div>
 
-    <div id="dailyAlert" class="alert">
+<!-- التنبيه -->
+<div id="dailyAlert" class="alert">
   🔔 لا تنسين روتين اليوم
 </div>
     
