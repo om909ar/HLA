@@ -1,1 +1,81 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>معلوماتي</title>
+
+<style>
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: linear-gradient(135deg, #fff5f7, #f0e6ff);
+  padding: 20px;
+  text-align: center;
+}
+
+.box {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+textarea {
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid #eee;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+button {
+  margin-top: 15px;
+  padding: 12px 20px;
+  border: none;
+  background: #ff8fab;
+  color: white;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>📦 معلومات الشحن</h2>
+
+<div class="box">
+
+<textarea id="myInfo">
+الاسم: هلا العتيبي
+الجوال: 0508523488
+المدينة: حائل
+المحافظة: بقعاء
+الحي: الظهيرة
+العنوان الوطني: HLAA6741
+
+رابط الحساب:
+https://www.tiktok.com/@i.h2la?_r=1&_t=ZS-95j3jmEDp04
+</textarea>
+
+<button onclick="copyText()">📋 نسخ المعلومات</button>
+
+</div>
+
+<script>
+function copyText() {
+  let text = document.getElementById("myInfo");
+  text.select();
+  document.execCommand("copy");
+  alert("تم النسخ ✅");
+}
+</script>
+
+</body>
+</html>
