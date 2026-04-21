@@ -79,6 +79,11 @@ textarea {
   font-weight: bold;
   font-size: 16px;
 }
+
+  .today {
+  border: 2px solid #d81b60;
+  background: #fff0f5;
+}
   
 </style>
 
@@ -117,7 +122,13 @@ for (let i = 1; i <= daysInMonth; i++) {
   let dayName = daysNames[dateObj.getDay()];
 
   let card = document.createElement("div");
-  card.className = "card";
+card.className = "card";
+card.id = "day-" + i;
+
+// ⭐ تحطه هنا (تحتهم)
+if (i === currentDay) {
+  card.classList.add("today");
+}
 
   // إذا اليوم انتهى
   if (i < currentDay) {
@@ -139,6 +150,19 @@ function save(day, value) {
   localStorage.setItem(storageKey, JSON.stringify(data));
 }
 
+
+setTimeout(() => {
+  let todayCard = document.getElementById("day-" + currentDay);
+
+  if (todayCard) {
+    todayCard.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  }
+}, 300);
+  
+  
 </script>
 
 </body>
