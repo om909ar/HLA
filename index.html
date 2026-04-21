@@ -436,14 +436,16 @@ function toggleMenu() {
 let today = new Date().getDate();
 
   let alertBox = document.getElementById("dailyAlert");
-  alertBox.style.display = "block";
+  let alertBox = document.getElementById("dailyAlert");
 
-  setTimeout(() => {
-    alertBox.style.display = "none";
-  }, 10000);
+alertBox.style.display = "block";
+alertBox.style.opacity = "1";
+
+setTimeout(() => {
+  alertBox.style.opacity = "0";
+}, 10000);
 
  
-}
 
 
         
