@@ -328,14 +328,33 @@ border: 1px solid #ffe4ec;
     </div>
 
     <div class="main-container">
-        <div class="glass-card p-6 mb-6">
-            <h2 class="text-lg font-bold text-gray-700 mb-4">✨ إضافة براند جديد</h2>
-            <div class="add-form">
-                <input type="text" id="newBrand" class="input-field" placeholder="اسم البراند...">
-                <input type="text" id="newCode" class="input-field" placeholder="الكود...">
-                <button onclick="addNewTask()" class="btn-add">إضافة +</button>
-            </div>
-        </div>
+ <!-- داخل الكرت الأبيض (أول كرت) -->
+<div class="glass-card p-6 mb-6">
+
+  <!-- زر الثلاث أشرطة -->
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+  <h2 class="text-lg font-bold text-gray-700 mb-4">
+    ✨ إضافة براند جديد
+  </h2>
+
+  <div class="add-form">
+    <!-- باقي الفورم عندك -->
+  </div>
+
+</div>
+
+
+<!-- القائمة الجانبية (تكون برا الكرت) -->
+<div id="sideMenu" class="side-menu">
+  <a href="routine.html">💅🏻 الروتين الشهري</a>
+</div>
+
+
+<!-- التنبيه -->
+<div id="dailyAlert" class="alert">
+  🔔 لا تنسين روتين اليوم
+</div>
 
         <div class="glass-card">
             <table id="taskTable">
