@@ -119,42 +119,39 @@ let container = document.getElementById("container");
 
 // إنشاء الكروت
 for (let i = 1; i <= daysInMonth; i++) {
-  }
 
   let dateObj = new Date(year, month, i);
   let dayName = daysNames[dateObj.getDay()];
 
   let card = document.createElement("div");
-card.className = "card";
-card.id = "day-" + i;
+  card.className = "card";
+  card.id = "day-" + i;
 
-// ⭐ تحطه هنا (تحتهم)
-if (i === currentDay) {
-  card.classList.add("today");
-}
+  // اليوم الحالي
+  if (i === currentDay) {
+    card.classList.add("today");
+  }
 
-  // إذا اليوم انتهى
+  // الأيام القديمة
   let isDone = i < currentDay;
 
-if (isDone) {
-  card.classList.add("done");
-}
+  if (isDone) {
+    card.classList.add("done");
+  }
 
   card.innerHTML = `
     <div class="day">${dayName}</div>
     <div class="date">${i}/${month+1}/${year}</div>
     <textarea 
-  placeholder="اكتب روتينك..." 
-  ${isDone ? "disabled" : ""} 
-  oninput="save(${i}, this.value)"
->
-  ${data[i] || ""}
-</textarea>
+      placeholder="اكتب روتينك..." 
+      ${isDone ? "disabled" : ""} 
+      oninput="save(${i}, this.value)"
+    >${data[i] || ""}</textarea>
   `;
 
-container.appendChild(card);
+  container.appendChild(card);
 
-  }
+} // ✅ هنا تقفل اللوب فقط
 // حفظ
 function save(day, value) {
   data[day] = value;
