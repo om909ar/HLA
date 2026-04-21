@@ -119,6 +119,7 @@ let container = document.getElementById("container");
 
 // إنشاء الكروت
 for (let i = 1; i <= daysInMonth; i++) {
+  }
 
   let dateObj = new Date(year, month, i);
   let dayName = daysNames[dateObj.getDay()];
@@ -152,7 +153,8 @@ if (isDone) {
   `;
 
 container.appendChild(card);
-  
+
+  }
 // حفظ
 function save(day, value) {
   data[day] = value;
