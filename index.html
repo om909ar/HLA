@@ -216,20 +216,19 @@
   padding-top: 60px;
   transition: 0.3s;
 
-  z-index: 9998;
+  z-index: 9999; /* 🔥 أهم تعديل */
+
 
 }
 
 .side-menu a {
-  display: block;
+  display: flex;              /* بدل block */
+  justify-content: flex-end;  /* يخليه يمين */
   padding: 15px;
+  width: 100%;
   text-decoration: none;
   color: #ff8fab;
   font-weight: bold;
-
-  width: 100%;        /* يخلي كامل المكان قابل للضغط */
-  text-align: right;  /* يخلي النص يمين */
-  direction: rtl;     /* يصلح مشكلة الانحراف */
 
 }
 
