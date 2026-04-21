@@ -228,7 +228,7 @@
   font-weight: bold;
 }
 
-        .alert {
+      .alert {
   position: fixed;
   top: 20px;
   left: 50%;
@@ -243,7 +243,9 @@
   font-weight: bold;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   
-  display: none;
+  opacity: 0;            /* 🔥 بدل display */
+  transition: 0.5s;
+
   z-index: 9999;
 }
         
@@ -433,9 +435,8 @@ function toggleMenu() {
   }
 }
 
-let today = new Date().getDate();
 
-  let alertBox = document.getElementById("dailyAlert");
+
   let alertBox = document.getElementById("dailyAlert");
 
 alertBox.style.display = "block";
