@@ -209,27 +209,26 @@
   right: -220px;
   width: 200px;
   height: 100%;
-
   background: white;
   box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-
   padding-top: 60px;
   transition: 0.3s;
-
-  z-index: 9999; /* 🔥 أهم تعديل */
-
-
+  z-index: 99999; /* 🔥 رفعناه جدًا */
 }
 
 .side-menu a {
-  display: flex;              /* بدل block */
-  justify-content: flex-end;  /* يخليه يمين */
-  padding: 15px;
+  display: block;
   width: 100%;
-  text-decoration: none;
-  color: #ff8fab;
-  font-weight: bold;
+  padding: 15px;
+  text-align: right;
+  direction: rtl;
+}
+        body * {
+  pointer-events: auto;
+}
 
+.side-menu, .side-menu * {
+  pointer-events: auto;
 }
 
      .alert {
