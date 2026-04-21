@@ -179,6 +179,7 @@
             justify-content: center;
             align-items: center;
         }
+        
 .menu-btn {
   position: fixed;
   top: 15px;
@@ -199,30 +200,23 @@
 
   cursor: pointer;
 
-  z-index: 9999; /* أهم شي */
+  z-index: 9999;
 }
 
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -220px;
+  width: 200px;
+  height: 100%;
 
-.side-menu a {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  background: white;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.1);
 
-  gap: 10px;
-
-  margin: 10px;
-  padding: 12px 15px;
-
-  background: #fff0f5; /* لون خفيف */
-  border-radius: 12px;
-
-  text-decoration: none;
-  color: #d81b60;
-  font-weight: bold;
-
-  box-shadow: 0 5px 12px rgba(0,0,0,0.08);
-
+  padding-top: 60px;
   transition: 0.3s;
+
+  z-index: 99999;
 }
 
 .side-menu a {
@@ -251,20 +245,13 @@
   transform: scale(1.05);
   background: #ffe4ec;
 }
-        body * {
-  pointer-events: auto;
-}
 
-.side-menu, .side-menu * {
-  pointer-events: auto;
-}
-
-     .alert {
+.alert {
   position: fixed;
   top: 70px;
   right: 15px;
 
-  background: #ffffff; /* أبيض واضح */
+  background: #ffffff;
   color: #d81b60;
 
   padding: 12px 16px;
@@ -275,7 +262,7 @@
 
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 
-  border: 1px solid #ffe4e9; /* 👈 يعطيه شكل قالب */
+  border: 1px solid #ffe4e9;
 
   display: flex;
   align-items: center;
