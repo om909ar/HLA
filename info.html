@@ -16,40 +16,49 @@ body {
 
 /* الكرت */
 .box {
-  max-width: 500px; /* 👈 صغرناه من 900 */
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+
+  max-width: 500px;
   width: 90%;
   margin: 40px auto;
+
+  border: 2px solid #ffe4e9; /* 👈 هذا أهم شي */
+  box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
 }
 
   
 /* العنوان */
 h2 {
   text-align: center;
-  color: #d81b60;
-  font-size: 28px; /* 👈 كان 24 */
-  margin-bottom: 25px;
+  color: #ff4d7d;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
+  
 
 /* النص */
 textarea {
   width: 100%;
-  height: auto; /* 👈 أهم سطر */
-  min-height: 300px; /* 👈 يعطيه طول */
+  height: auto;
 
   border-radius: 15px;
   padding: 15px;
 
-  border: 1px solid #ffe4e9;
+  border: 1px solid #ffd6e0;
   background: #fff0f5;
 
   font-size: 16px;
   line-height: 1.8;
 
+  font-weight: bold;
+  color: #d81b60; /* 👈 اللون الوردي الأساسي */
+
   box-sizing: border-box;
   resize: none;
-  overflow: hidden; /* 👈 يشيل السكرول */
+  overflow: hidden;
 }
-
   
 /* الزر */
 button {
