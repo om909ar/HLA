@@ -341,21 +341,29 @@ border: 1px solid #ffe4ec;
     </h2>
 
     <div class="add-form">
-
-        <div class="glass-card">
-            <table id="taskTable">
-                <thead>
-                    <tr>
-                        <th style="width: 25%;">البراند</th>
-                        <th style="width: 20%;">الكود</th>
-                        <th style="width: 45%;">الملاحظات</th>
-                        <th style="width: 10%;">إجراء</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
+      <input type="text" id="newBrand" class="input-field" placeholder="اسم البراند...">
+      <input type="text" id="newCode" class="input-field" placeholder="الكود...">
+      <button onclick="addNewTask()" class="btn-add">إضافة +</button>
     </div>
+
+  </div>
+
+  <!-- كرت الجدول (خله منفصل) -->
+  <div class="glass-card">
+    <table id="taskTable">
+      <thead>
+        <tr>
+          <th style="width: 25%;">البراند</th>
+          <th style="width: 20%;">الكود</th>
+          <th style="width: 45%;">الملاحظات</th>
+          <th style="width: 10%;">إجراء</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+</div>
 
     <script>
         const initialTasks = [
