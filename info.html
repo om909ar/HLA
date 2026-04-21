@@ -11,20 +11,22 @@
 body {
   font-family: 'Tajawal', sans-serif;
   background: linear-gradient(135deg, #fff5f7, #f0e6ff);
-  padding: 20px;
+  padding: 0; /* 👈 بدل 20 */
+  margin: 0;  /* 👈 أضفها */
 }
 
 /* الكرت */
 .box {
   background: white;
-  padding: 30px;
+  padding: 25px;
   border-radius: 20px;
 
   max-width: 500px;
-  width: 90%;
+  width: calc(100% - 30px); /* 👈 هذا السحر */
+
   margin: 40px auto;
 
-  border: 2px solid #ffe4e9; /* 👈 هذا أهم شي */
+  border: 2px solid #ffe4e9;
   box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
 }
 
