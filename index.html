@@ -243,6 +243,10 @@ border: 1px solid #ffe4ec;
   transition: 0.3s;
 }
 
+    .side-menu.open {
+  right: 0;
+}
+
 .side-menu a:hover {
   transform: scale(1.05);
   background: #ffe4ec;
@@ -458,14 +462,9 @@ border: 1px solid #ffe4ec;
 
 
 
-function toggleMenu() {
+ffunction toggleMenu() {
   let menu = document.getElementById("sideMenu");
-
-  if (menu.style.right === "0px") {
-    menu.style.right = "-220px";
-  } else {
-    menu.style.right = "0px";
-  }
+  menu.classList.toggle("open");
 }
 
 
