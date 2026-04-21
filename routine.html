@@ -141,7 +141,13 @@ if (isDone) {
   card.innerHTML = `
     <div class="day">${dayName}</div>
     <div class="date">${i}/${month+1}/${year}</div>
-    <textarea placeholder="اكتب روتينك..." oninput="save(${i}, this.value)">${data[i] || ""}</textarea>
+    <textarea 
+  placeholder="اكتب روتينك..." 
+  ${isDone ? "disabled" : ""} 
+  oninput="save(${i}, this.value)"
+>
+  ${data[i] || ""}
+</textarea>
   `;
 
   container.appendChild(card);
