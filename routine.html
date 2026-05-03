@@ -153,6 +153,7 @@ for (let i = 1; i <= daysInMonth; i++) {
     <textarea 
       placeholder="اكتب روتينك..." 
       data-clarity-unmask="true"
+      data-clarity-mask="false"
       ${isDone ? "disabled" : ""} 
       oninput="save(${i}, this.value)"
     >${data[i] || ""}</textarea>
