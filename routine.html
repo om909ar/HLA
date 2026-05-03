@@ -128,7 +128,7 @@ let container = document.getElementById("container");
 // إنشاء الكروت
 for (let i = 1; i <= daysInMonth; i++) {
 
-  let dateObj = newDate(year, month, i);
+  let dateObj = new Date(year, month, i);
   let dayName = daysNames[dateObj.getDay()];
 
   let card = document.createElement("div");
