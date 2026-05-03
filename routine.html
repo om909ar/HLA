@@ -128,7 +128,7 @@ let container = document.getElementById("container");
 // إنشاء الكروت
 for (let i = 1; i <= daysInMonth; i++) {
 
-  let dateObj = new Date(year, month, i);
+  let dateObj = newDate(year, month, i);
   let dayName = daysNames[dateObj.getDay()];
 
   let card = document.createElement("div");
@@ -152,6 +152,7 @@ for (let i = 1; i <= daysInMonth; i++) {
     <div class="date">${i}/${month+1}/${year}</div>
     <textarea 
       placeholder="اكتب روتينك..." 
+      data-clarity-unmask="true"
       ${isDone ? "disabled" : ""} 
       oninput="save(${i}, this.value)"
     >${data[i] || ""}</textarea>
